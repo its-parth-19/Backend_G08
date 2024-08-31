@@ -1,0 +1,80 @@
+***creating database and making collections in it 
+
+use myDatabasee
+switched to db myDatabasee
+myDatabasee> db.createCollection("mycollection")
+{ ok: 1 }
+
+**inserting data in the database..
+db.myCollection.insertMany([
+...   { name: "Alice", age: 30, city: "New York", status: "active" },
+...   { name: "Bob", age: 22, city: "Los Angeles", status: "inactive" },
+...   { name: "Charlie", age: 28, city: "Chicago", status: "active" },
+...   { name: "David", age: 34, city: "New York", status: "inactive" },
+...   { name: "Eve", age: 29, city: "Los Angeles", status: "active" }
+... ])
+
+**searching data on the basis of or and not operation...
+1.and operation performing..
+db.myCollection.find({
+  $and: [
+    { age: { $gt: 25 } },
+    { city: "New York" }
+  ]
+})
+Result of the ouptut:1
+[
+  { "name": "Alice", "age": 30, "city": "New York", "status": "active" },
+  { "name": "David", "age": 34, "city": "New York", "status": "inactive" }
+]
+
+
+
+
+2.OR OPERATION:
+db.myCollection.find({
+  $or: [
+    { age: { $gt: 25 } },
+    { city: "Los Angeles" }
+  ]
+})
+Result of ouptut:2
+[
+  { "name": "Alice", "age": 30, "city": "New York", "status": "active" },
+  { "name": "Bob", "age": 22, "city": "Los Angeles", "status": "inactive" },
+  { "name": "David", "age": 34, "city": "New York", "status": "inactive" },
+  { "name": "Eve", "age": 29, "city": "Los Angeles", "status": "active" }
+]
+
+
+
+3.NOT OPERATION:
+db.myCollection.find({
+  age: { $not: { $gt: 25 } }
+})
+Result of operation:3
+[
+  { "name": "Bob", "age": 22, "city": "Los Angeles", "status": "inactive" }
+]
+
+
+
+4.Combining and or not..
+db.myCollection.find({
+  $and: [
+    { age: { $gt: 25 } },
+    { 
+      $or: [
+        { city: "New York" },
+        { city: "Los Angeles" }
+      ]
+    },
+    { status: { $not: { $eq: "inactive" } } }
+  ]
+})
+Result of operation:4
+[
+  { "name": "Alice", "age": 30, "city": "New York", "status": "active" },
+  { "name": "Eve", "age": 29, "city": "Los Angeles", "status": "active" }
+]
+

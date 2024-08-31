@@ -1,0 +1,16 @@
+MVC->backend Architecture..
+model view controller..
+1.routes banayenge..
+2. controller ->function wagera control karega..
+3.model ->this contains the data logic..
+
+.netframework ->is the first example of mvc 
+
+
+components for website
+1.Server
+2.routes
+3.Models
+4.Controllers
+5. Middleware
+
